@@ -1,6 +1,5 @@
 <?php 
 require_once 'classes/usuarios.php';
-$u = new Usuario();
 ?>
 
 <html lang="pt-br">

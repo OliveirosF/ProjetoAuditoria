@@ -55,11 +55,14 @@ Class Usuario
 			$dado = $sql->fetch();
 			session_start();
 			$_SESSION['id_usuario'] = $dado['id_usuario'];
-			return true; //cadastrado com sucesso
+			//$tipo = $dado['tipo'];
+			
+			//if ($tipo == "medico"){ header("location: teste.php"); }    //tipo medico
+			return true;	
 		}
 		else
 		{
-			return false;//nao foi possivel logar
+			return false;  //nao foi possivel logar
 		}
 	}
 }

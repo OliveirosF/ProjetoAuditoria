@@ -46,6 +46,7 @@ $u = new Usuario();
 	<script type="text/javascript" src="js/main.js"></script>
 
 <?php
+include ('conexao.php');
 if(isset($_POST['name']))
 {
 	$name = addslashes($_POST['name']);
@@ -60,7 +61,19 @@ if(isset($_POST['name']))
 			if($u->logar($name,$senha))
 			{
 				// RECUPERA OS DADOS DO BANCO PARA O TIPO DE USUARIO LOGADO!
-				header("location: menuAtendente.php");
+				$query1 = "SELECT tipo FROM usuarios where nome= '$name' ";
+				$result_query1 = mysqli_query($conn,$query1);
+				$dados = mysqli_fetch_array( $result_query1 );
+				$tipo = $dados['tipo'];
+				if(strcmp($tipo, "medico") == 0){
+					mysqli_close($conn);
+					header("location: teste.php");
+				}
+				if(strcmp($tipo, "atendente") == 0 ){
+					mysqli_close($conn);
+					header("location: menuAtendente.php");
+				}
+				
 				
 						
 			}
