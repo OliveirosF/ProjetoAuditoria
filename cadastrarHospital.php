@@ -6,12 +6,12 @@
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8"/>
-	<title>Cadastrar Usuario</title>
+	<title>Cadastrar Hospital</title>
 	<link rel="stylesheet" href="CSS/estilo.css">
 </head>
 <body>
 <div id="corpo-form-cad">
-	<h1>Cadastrar Usuario</h1>
+	<h1>Cadastrar Hospital</h1>
 	<form method="POST">
 		<input type="text" name="nome" placeholder="Usuario" maxlength="30">
 		<input type="tipo" name="tipo" placeholder="Tipo" maxlength="40">
@@ -36,7 +36,7 @@ if(isset($_POST['nome']))
 		{
 			if($senha == $confirmarSenha)
 			{
-				if($u->cadastrar($nome,$senha,$tipo))
+				if($u->cadastrarHospital($nome,$senha,$tipo))
 				{
 					?>
 					<div id="msg-sucesso">

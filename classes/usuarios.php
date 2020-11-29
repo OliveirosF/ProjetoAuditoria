@@ -65,5 +65,31 @@ Class Usuario
 			return false;  //nao foi possivel logar
 		}
 	}
+
+		// CADASTRAR HOSPITAL AJEITA AS FUNÇÕES
+	public function cadastrarHospital($nomeHospital, $id_medico, $plano)
+	{
+		global $pdo;
+		//verificar se já existe o nome cadastrado
+		$sql = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE nome = :n");
+		$sql->bindValue(":n",$nomeHospital);
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+			return false; //ja esta cadastrado
+		}
+		else
+		{
+			//caso nao, Cadastrar
+			$sql = $pdo->prepare("INSERT INTO usuarios (nome, senha, tipo) VALUES (:n, :s, :t)");
+			$sql->bindValue(":n",$nomeHospital);
+			$sql->bindValue(":s",md5($senha));
+			$sql->bindValue(":t",$tipo);
+			$sql->execute();
+			return true; //tudo ok
+		}
+	}
+
+
 }
 ?>
