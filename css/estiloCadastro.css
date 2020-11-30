@@ -1,15 +1,20 @@
 .container {
     width: 50%;
     margin: 0 auto;
+
   }
   
   .form-contact {
     width: 100%;
     font-family: "Arial", Times, serif;
+    color: #292929;
+    background-color: #38d39f;
+    border-radius: 20px;
+    
   }
   
   .form-contact-input {
-    width: 100%;
+    width: 80%;
     color: #292929;
     font-size: 18px;
     background-color: #E9E9E9;
@@ -25,7 +30,7 @@
   }
   
   .form-contact-textarea {
-    width: 100%;
+    width: 80%;
     color: #292929;
     font-size: 18px;
     background-color: #E9E9E9;
@@ -45,19 +50,20 @@
   }
   
   .form-contact-button {
-    width: 100%;
+    
+    width: 30%;
     font-size: 18px;
-    border-radius: 4px;
-    color: rgb(8, 1, 1);
+    border-radius: 20px;
+    color: rgb(250, 250, 250);
     height: 40px;
     opacity: .8;
     margin-bottom: 20px;
     cursor: pointer;
-    background: #38d39f;
+    background: #0c0c0c;
     display: block;
     border: none;
-    border-bottom: 1px solid #38d39f;
-    border-right: 1px solid#38d39f;
+    border-bottom: 1px solid  #0c0c0c;
+    border-right: 1px solid  #0c0c0c;
     transition: 1s;
   }
   
