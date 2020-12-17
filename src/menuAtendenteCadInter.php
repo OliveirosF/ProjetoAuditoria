@@ -1,3 +1,10 @@
+<?php
+require_once 'classes/usuarios.php';
+$u = new Usuario();
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,6 +13,17 @@
 		<title>Cadastro Atentende</title>
         <link rel="stylesheet"  href="css/styleMenu.css">
         <link rel="stylesheet"  href="css/estiloCadastro.css">
+		<script type="text/javascript">
+			function formatar_mascara(src, mascara) {
+ 			var campo = src.value.length;
+ 			var saida = mascara.substring(0,1);
+ 			var texto = mascara.substring(campo);
+ 			if(texto.substring(0,1) != saida){
+
+ 				 src.value += texto.substring(0,1);
+ 				}
+			}
+		</script>
 	</head>
 	<body>
 		<input type="checkbox" id="bt_menu">
@@ -27,21 +45,43 @@
        <br><br>
 <div class="container" align= "center" >  
 
-  <form action="#" class="form-contact" method="post" tabindex="1" >
+  <form class="form-contact" action="cadInternacao.php" method="POST" >
   <br><br> 
-	  <h2 > Cadastro Internação</h2>
-	   <br>  
-     <input  type="nome" class="form-contact-input" name="nome" placeholder="Nome Paciente" required />  
-	 <input type="hospital" class="form-contact-input" name="hospital" placeholder="Hospital" required />
-	 <select  class="form-contact-input" id="procedimento" name="procedimento">
-          <option value="internacao">Internação</option>
-          <option value="outro">Outro</option>
-	</select>  
+	  <h2 > DIGITE O CPF DO CLIENTE</h2>
+	   <br>
+	   <input placeholder="000.000.000-00" class="form-contact-input" name="cpf" type="text" maxlength="14" size="40" onkeypress="formatar_mascara(this,'###.###.###-##')" required>
+	  
 	<br> 
-	 <button  type="submit" class="form-contact-button">Enviar</button>
+	 <button  type="submit" class="form-contact-button">Pesquisar</button>
 	 <br>  
   </form>
     
-</div> 
+</div>
+
+<?php
+include ('conexao.php');
+
+if(isset($_POST['cpf']))
+{
+		$u->conectar("engenharia2","localhost","admin","admin");
+		if($u->msgErro == "")
+		{
+				// RECUPERA OS DADOS DE PACIENTE
+				$cpf = addslashes($_POST['cpf']);
+				$query1 = "SELECT cpf FROM paciente where cpf= '$cpf' ";
+				$result_query1 = mysqli_query($conn,$query1);
+				$dados = mysqli_fetch_array( $result_query1 );
+				$cpf1 = $dados['cpf'];
+				if(strcmp($cpf1, $cpf) == 0){
+					
+					mysqli_close($conn);
+					header("location: cadInternacao.php");
+				}	
+						
+		}
+		
+
+	}
+?>
 	</body>
 </html>

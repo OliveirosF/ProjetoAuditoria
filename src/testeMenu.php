@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" type="text/css" href="css/estiloCadastro.css">
-<div class="container">  
-  <form action="#" class="form-contact" method="post" tabindex="1">  
-     <input type="text" class="form-contact-input" name="nome" placeholder="Nome" required />  
-     <input type="email" class="form-contact-input" name="email" placeholder="Email" required />  
-     <input type="tel" class="form-contact-input" name="tel" placeholder="Telefone" />  
-     <textarea class="form-contact-textarea" name="conteudo" placeholder="Deixe uma mensagem" required></textarea>  
-     <button type="submit" class="form-contact-button">Enviar</button>  
-  </form>  
-</div> 
-</html>
+<?php
+
+require_once 'classes/usuarios.php';
+include ('conexao.php');
+$u = new Usuario();
+
+$u->conectar("engenharia2","localhost","admin","admin");
+echo "FAGNER";
+if(isset($_POST['cpf'])){
+  echo "FAGNER";
+    if($u->msgErro == ""){
+        // RECUPERA OS DADOS DE PACIENTE
+        $cpf = addslashes($_POST['cpf']);
+        $query1 = "SELECT cpf,nome,planosaude FROM paciente where cpf= '$cpf' ";
+        $result_query1 = mysqli_query($conn,$query1);
+        $dados = mysqli_fetch_array( $result_query1 );
+        $nome = $dados['nome'];
+        $planosaude = $dados['planosaude'];
+        #if(strcmp($cpf1, $cpf) == 0){
+         #   mysqli_close($conn);
+            #header("location: teste.php");
+            
+        #}	
+                
+    }
+
+echo "CPF = ", $cpf ;
+}

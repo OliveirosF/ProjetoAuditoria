@@ -26,8 +26,7 @@ $u = new Usuario();
            		   		<i class="fas fa-user"></i>
            		   </div>
            		   <div class="div">
-           		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="name">
+           		   		<input  placeholder="Username" type="text" class="input" name="name">
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -35,8 +34,7 @@ $u = new Usuario();
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">
-           		    	<h5>Password</h5>
-           		    	<input type="password" class="input" name="senha">
+           		    	<input placeholder="Password" type="password" class="input" name="senha">
             	   </div>
             	</div>
             	<input type="submit" class="btn" value="Login">
