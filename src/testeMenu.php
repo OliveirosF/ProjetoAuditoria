@@ -1,28 +1,8 @@
-<?php
-
-require_once 'classes/usuarios.php';
-include ('conexao.php');
-$u = new Usuario();
-
-$u->conectar("engenharia2","localhost","admin","admin");
-echo "FAGNER";
-if(isset($_POST['cpf'])){
-  echo "FAGNER";
-    if($u->msgErro == ""){
-        // RECUPERA OS DADOS DE PACIENTE
-        $cpf = addslashes($_POST['cpf']);
-        $query1 = "SELECT cpf,nome,planosaude FROM paciente where cpf= '$cpf' ";
-        $result_query1 = mysqli_query($conn,$query1);
-        $dados = mysqli_fetch_array( $result_query1 );
-        $nome = $dados['nome'];
-        $planosaude = $dados['planosaude'];
-        #if(strcmp($cpf1, $cpf) == 0){
-         #   mysqli_close($conn);
-            #header("location: teste.php");
-            
-        #}	
-                
-    }
-
-echo "CPF = ", $cpf ;
-}
+<Div   style = "padding: 100px 100px 10px ;"> 
+<link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input type="text" class="form-control" placeholder="Usuário" aria-label="Usuário" aria-describedby="basic-addon1">
+</div>

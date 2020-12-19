@@ -5,7 +5,7 @@
   }
   
   .form-contact {
-    width: 100%;
+    width: 50%;
     font-family: "Arial", Times, serif;
     color: #292929;
     background-color: #38d39f;
@@ -14,7 +14,7 @@
   }
   
   .form-contact-input {
-    width: 80%;
+    width: 50%;
     color: #292929;
     font-size: 18px;
     background-color: #E9E9E9;
@@ -27,10 +27,14 @@
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
     text-indent: 20px;
+    
+    
   }
+
+
   
   .form-contact-textarea {
-    width: 80%;
+    width: 50%;
     color: #292929;
     font-size: 18px;
     background-color: #E9E9E9;
@@ -48,6 +52,21 @@
     padding-right: 0;
     font-family: "Arial", Times, serif;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   .form-contact-button {
     

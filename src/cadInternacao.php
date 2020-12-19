@@ -14,7 +14,15 @@ if(isset($_POST['cpf'])){
         $result_query1 = mysqli_query($conn,$query1);
         $dados = mysqli_fetch_array( $result_query1 );
         $nome = $dados['nome'];
-        $planosaude = $dados['planosaude'];
+		$planosaude = $dados['planosaude'];
+		
+
+		if(isset($dados['cpf'])){
+		}else {
+			header("location: PacienteInexistente.php"); // NÃO ENCONTRADO
+		}
+
+
 
         // RECUPERA OS DADOS DE PLANO
         $query2 = "SELECT nome,cobertura,hospital,tipovisita FROM planodesaude where nome = '$planosaude' ";
@@ -37,10 +45,6 @@ if(isset($_POST['cpf'])){
 }
 
 
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +55,8 @@ if(isset($_POST['cpf'])){
 		<title>Cadastro Atentende</title>
         <link rel="stylesheet"  href="css/styleMenu.css">
         <link rel="stylesheet"  href="css/estiloCadastro.css">
+		
+		
 	</head>
 	<body>
 		<input type="checkbox" id="bt_menu">
@@ -69,15 +75,15 @@ if(isset($_POST['cpf'])){
 			</ul>
 		</nav>
 
-       <br><br>
+      
 <div class="container" align= "center" >  
-
+<br><br> 
   <form class="form-contact"  method="post" tabindex="1" >
   <br><br> 
 	  <h2 > DADOS RECUPERADOS </h2>
-      <br>
-	   <input readonly value="<?php echo $dados['nome']; ?>" class="form-contact-input" name="name" method="post" type="text">
-       <input readonly value="<?php echo $dados['cpf']; ?>" class="form-contact-input" name="cpf" method="post" type="text">
+	  <br>
+	<input  readonly value="<?php echo $dados['nome']; ?>" class="form-contact-input" name="name" method="post" type="text">
+	   <input readonly value="<?php echo $dados['cpf']; ?>" class="form-contact-input" name="cpf" method="post" type="text">
        <input readonly value="<?php echo $dados['planosaude']; ?>" class="form-contact-input" name="planodesaude" method="post" type="text">
        <input readonly value="<?php echo $dados2['hospital']; ?>" class="form-contact-input" name="hospital" method="post" type="text">
        <input readonly value="<?php echo $dados3['auditor']; ?>" class="form-contact-input" name="auditor" method="post" type="text">
@@ -89,6 +95,84 @@ if(isset($_POST['cpf'])){
   </form>
     
 </div>
+
+<?php
+//verificar se clicou no botao
+if(isset($_POST['name']))
+{
+	$nome = addslashes($_POST['name']);
+	$cpf = addslashes($_POST['cpf']);
+    $planosaude = addslashes($_POST['planodesaude']);
+    $hospital = addslashes($_POST['hospital']);
+    $auditor = addslashes($_POST['auditor']);
+    $data = addslashes($_POST['data']);
+	
+	//verificar se esta preenchido
+	if(!empty($nome) && !empty($cpf) && !empty($planosaude) && !empty($hospital) && !empty($auditor) && !empty($data))
+	{
+		$u->conectar("engenharia2","localhost","admin","admin");
+		if($u->msgErro == "")//se esta tudo ok
+		{
+			
+			if($u->cadastrarInternacao($nome,$cpf,$planosaude,$hospital,$auditor,$data)) 
+			{
+                    header("location: InternacaoCadastrada.php");
+					?>
+					<div id="msg-sucesso">
+					
+					</div>
+                    
+					<?php
+			}
+			else
+			{
+                    header("location: InternacaoErro.php");
+					?>
+					<div class="msg-erro">
+						nome ja cadastrado!
+					</div>
+					<?php
+			}
+			
+		}
+		else
+		{
+			?>
+			<div class="msg-erro">
+				<?php echo "Erro: ".$u->msgErro;?>
+			</div>
+			<?php
+		}
+	}else
+	{
+		?>
+		<div class="msg-erro">
+			Preencha todos os campos!
+		</div>
+		<?php
+	}
+}
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </body>
 </html>
       

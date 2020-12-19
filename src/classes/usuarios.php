@@ -90,6 +90,33 @@ Class Usuario
 		}
 	}
 
+	public function cadastrarInternacao($nomePac, $cpf, $plano,$Hospital,$auditor,$date)
+	{
+		global $pdo;
+		//verificar se já existe o nome cadastrado
+		$sql = $pdo->prepare("SELECT cpf FROM internacao WHERE cpf = :n");
+		$sql->bindValue(":n",$cpf);
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+			return false; //ja esta cadastrado
+		}
+		else
+		{
+			//caso nao, Cadastrar
+			$sql = $pdo->prepare("INSERT INTO internacao (nome, cpf, planosaude,hospital,auditor,diainternacao ) VALUES (:n, :s, :t, :g, :h, :j)");
+			$sql->bindValue(":n",$nomePac);
+			$sql->bindValue(":s",$cpf);
+			$sql->bindValue(":t",$plano);
+			$sql->bindValue(":g",$Hospital);
+			$sql->bindValue(":h",$auditor);
+			$sql->bindValue(":j",$date);
+			$sql->execute();
+			return true; //tudo ok
+		}
+	}
+
+
 
 }
 ?>
