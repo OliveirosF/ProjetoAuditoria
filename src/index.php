@@ -1,6 +1,8 @@
 <?php 
 require_once 'classes/usuarios.php';
 $u = new Usuario();
+session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,9 +65,11 @@ if(isset($_POST['name']))
 				$result_query1 = mysqli_query($conn,$query1);
 				$dados = mysqli_fetch_array( $result_query1 );
 				$tipo = $dados['tipo'];
+				$_SESSION['login'] = $name;
+				
 				if(strcmp($tipo, "medico") == 0){
 					mysqli_close($conn);
-					header("location: teste.php");
+					header("location: menuMedico.php");
 				}
 				if(strcmp($tipo, "atendente") == 0 ){
 					mysqli_close($conn);

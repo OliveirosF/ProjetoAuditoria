@@ -17,7 +17,7 @@ Class Usuario
 		}
 	}
 
-	public function cadastrar($nome, $senha, $tipo)
+	public function cadastrar($nome, $senha, $tipo,$nomec)
 	{
 		global $pdo;
 		//verificar se já existe o nome cadastrado
@@ -31,10 +31,11 @@ Class Usuario
 		else
 		{
 			//caso nao, Cadastrar
-			$sql = $pdo->prepare("INSERT INTO usuarios (nome, senha, tipo) VALUES (:n, :s, :t)");
+			$sql = $pdo->prepare("INSERT INTO usuarios (nome, senha, tipo,nomec) VALUES (:n, :s, :t, :h)");
 			$sql->bindValue(":n",$nome);
 			$sql->bindValue(":s",md5($senha));
 			$sql->bindValue(":t",$tipo);
+			$sql->bindValue(":h",$nomec);
 			$sql->execute();
 			return true; //tudo ok
 		}

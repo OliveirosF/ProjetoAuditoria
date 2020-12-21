@@ -18,7 +18,6 @@
 						<li><a href="#">Arte Visual</a></li>
 					</ul>
 				</li>
-				<li><a href="#">Contato</a></li>
 				<li><a href="index.php">Logout</a></li>
 			</ul>
 		</nav>

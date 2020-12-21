@@ -13,6 +13,7 @@
 <div id="corpo-form-cad">
 	<h1>Cadastrar Usuario</h1>
 	<form method="POST">
+		<input type="text" name="nomec" placeholder="Nome Completo" maxlength="30">
 		<input type="text" name="nome" placeholder="Usuario" maxlength="30">
 		<input type="tipo" name="tipo" placeholder="Tipo" maxlength="40">
 		<input type="password" name="senha" placeholder="Senha" maxlength="15">
@@ -25,18 +26,19 @@
 if(isset($_POST['nome']))
 {
 	$nome = addslashes($_POST['nome']);
+	$nomec = addslashes($_POST['nomec']);
 	$tipo = addslashes($_POST['tipo']);
 	$senha = addslashes($_POST['senha']);
 	$confirmarSenha = addslashes($_POST['confSenha']);
 	//verificar se esta preenchido
-	if(!empty($nome) && !empty($tipo) && !empty($senha) && !empty($confirmarSenha))
+	if(!empty($nomec) && !empty($nome) && !empty($tipo) && !empty($senha) && !empty($confirmarSenha))
 	{
 		$u->conectar("engenharia2","localhost","admin","admin");
 		if($u->msgErro == "")//se esta tudo ok
 		{
 			if($senha == $confirmarSenha)
 			{
-				if($u->cadastrar($nome,$senha,$tipo))
+				if($u->cadastrar($nome,$senha,$tipo,$nomec))
 				{
 					?>
 					<div id="msg-sucesso">

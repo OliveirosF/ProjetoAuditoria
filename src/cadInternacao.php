@@ -10,7 +10,7 @@ if(isset($_POST['cpf'])){
     if($u->msgErro == ""){
         // RECUPERA OS DADOS DE PACIENTE
         $cpf = addslashes($_POST['cpf']);
-        $query1 = "SELECT cpf,nome,planosaude FROM paciente where cpf= '$cpf' ";
+        $query1 = "SELECT cpf,nome,planosaude FROM paciente where cpf ='$cpf' ";
         $result_query1 = mysqli_query($conn,$query1);
         $dados = mysqli_fetch_array( $result_query1 );
         $nome = $dados['nome'];
