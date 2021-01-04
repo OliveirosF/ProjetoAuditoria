@@ -8,16 +8,22 @@ $result_query1 = mysqli_query($conn,$query1);
 session_start();
 $auditor = $_SESSION['login'] ;
 
-echo $_POST['cpf'];
+#echo $_POST['cpf'];
 
-$cpf = $_POST['cpf'];
-echo $cpf;
-$query1 = "SELECT cpf,nome,planosaude FROM paciente where cpf ='$cpf' ";
-$result_query1 = mysqli_query($conn,$query1);
-$dados = mysqli_fetch_array( $result_query1 );
-$nome = $dados['cpf'];
+#$cpf = $_POST['cpf'];
+  // RECUPERA OS DADOS DE PLANO
+$query2 = "SELECT nome,cobertura,hospital,tipovisita FROM planodesaude where nome = 'TUDOCLEAN' ";
+$result_query2 = mysqli_query($conn,$query2);
+$dados2 = mysqli_fetch_array($result_query2);
+$hospital = $dados2['hospital'];
+$tipovisita = $dados2['tipovisita'];
 
-echo $nome;
+if ($tipovisita == 3){
+ echo $data = date('Y-m-d', strtotime("+1 days"));
+  
+#header("location: testeMenu.php");
+}
+
 
 
 ?>

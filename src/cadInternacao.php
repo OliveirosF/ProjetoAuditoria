@@ -28,7 +28,8 @@ if(isset($_POST['cpf'])){
         $query2 = "SELECT nome,cobertura,hospital,tipovisita FROM planodesaude where nome = '$planosaude' ";
         $result_query2 = mysqli_query($conn,$query2);
         $dados2 = mysqli_fetch_array($result_query2);
-        $hospital = $dados2['hospital'];
+		$hospital = $dados2['hospital'];
+		$tipovisita = $dados2['tipovisita'];
         
          // RECUPERA OS DADOS DE HOSPITAL
          $query3 = "SELECT nome,auditor FROM hospital where nome = '$hospital' ";
@@ -56,7 +57,18 @@ if(isset($_POST['cpf'])){
         <link rel="stylesheet"  href="css/styleMenu.css">
         <link rel="stylesheet"  href="css/estiloCadastro.css">
 		
-		
+		<style type="text/css">
+
+  		
+  
+  			fieldset {
+    			  border: none;
+    			  padding: 0;
+  			}
+  		</style>
+
+
+
 	</head>
 	<body>
 		<input type="checkbox" id="bt_menu">
@@ -70,7 +82,6 @@ if(isset($_POST['cpf'])){
 						<li><a href="#">Arte Visual</a></li>
 					</ul>
 				</li>
-				<li><a href="#">Contato</a></li>
 				<li><a href="index.php">Logout</a></li>
 			</ul>
 		</nav>
@@ -78,26 +89,41 @@ if(isset($_POST['cpf'])){
       
 <div class="container" align= "center" >  
 <br><br> 
-  <form class="form-contact"  method="post" tabindex="1" >
-  <br><br> 
+  <form class="form-contact"  method="post" tabindex="1" > 
 	  <h2 > DADOS RECUPERADOS </h2>
 	  <br>
-	<input  readonly value="<?php echo $dados['nome']; ?>" class="form-contact-input" name="name" method="post" type="text">
+	  <fieldset >
+       <legend><b>Paciente </b></legend>
+	   <input  readonly value= "<?php  echo $dados['nome']; ?>" class="form-contact-input" name="name" method="post" type="text">
+	   </fieldset>
+	   <fieldset >
+	   <legend><b>Cpf </b></legend>
 	   <input readonly value="<?php echo $dados['cpf']; ?>" class="form-contact-input" name="cpf" method="post" type="text">
-       <input readonly value="<?php echo $dados['planosaude']; ?>" class="form-contact-input" name="planodesaude" method="post" type="text">
-       <input readonly value="<?php echo $dados2['hospital']; ?>" class="form-contact-input" name="hospital" method="post" type="text">
-       <input readonly value="<?php echo $dados3['auditor']; ?>" class="form-contact-input" name="auditor" method="post" type="text">
-       <input class="form-contact-input" value="<?php echo date('Y-m-d');?>" type="date"  name="data" required>
-      
-	<br> 
-    <button  type="submit" class="form-contact-button">Internação</button>
-	 <br>  
+       </fieldset>
+	   <fieldset>
+       <legend><b>Plano de Saúde </b></legend>
+	   <input readonly value="<?php echo $dados['planosaude']; ?>" class="form-contact-input" name="planodesaude" method="post" type="text">
+       </fieldset>
+	   <fieldset>
+       <legend><b>Hospital </b></legend>
+	   <input readonly value="<?php echo $dados2['hospital']; ?>" class="form-contact-input" name="hospital" method="post" type="text">
+       </fieldset>
+	   <fieldset>
+       <legend><b>Auditor </b></legend>
+	   <input readonly value="<?php echo $dados3['auditor']; ?>" class="form-contact-input" name="auditor" method="post" type="text">
+       </fieldset>
+	   <fieldset>
+       <legend><b>Data </b></legend>
+	   <input class="form-contact-input" value="<?php echo date('Y-m-d');?>" type="date"  name="data" required>
+	   </fieldset>
+    <button  type="submit" class="form-contact-button">Internação</button>  
   </form>
     
 </div>
 
 <?php
 //verificar se clicou no botao
+
 if(isset($_POST['name']))
 {
 	$nome = addslashes($_POST['name']);
@@ -105,7 +131,16 @@ if(isset($_POST['name']))
     $planosaude = addslashes($_POST['planodesaude']);
     $hospital = addslashes($_POST['hospital']);
     $auditor = addslashes($_POST['auditor']);
-    $data = addslashes($_POST['data']);
+	$data = addslashes($_POST['data']);
+	
+
+	if ($tipovisita == 1){
+		$data = date('Y-m-d', strtotime("+1 days"));
+	}
+	
+	if ($tipovisita == 3){
+		$data = date('Y-m-d', strtotime("+3 days"));
+	}
 	
 	//verificar se esta preenchido
 	if(!empty($nome) && !empty($cpf) && !empty($planosaude) && !empty($hospital) && !empty($auditor) && !empty($data))
