@@ -88,7 +88,7 @@ if(isset($_POST['cpf'])){
 
       
 <div class="container" align= "center" >  
-<br><br> 
+<br><br>                        
   <form class="form-contact"  method="post" tabindex="1" > 
 	  <h2 > DADOS RECUPERADOS </h2>
 	  <br>
