@@ -65,7 +65,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
         <div class="container" align= "center" >  
 <br><br>
-<form action="CadastrarRelatorio.php" method="POST"  >
+<form action="CadastrarRelatorio.php" method="post"  >
 <table class="table table-sm table-dark table-responsive  table table-hover"> 
         <tr> 
           <td>NOME</td> 
@@ -85,7 +85,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
           <td><?php echo date('d/m/Y', strtotime($dado['diainternacao'])); ?></td> 
           <td>
 
-          <input  type="hidden" name="relatorio" value="<?=$dado['cpf']?>" >
+          <input  type="hidden" name="cpfn" value="<?=$dado['cpf']?>" >
           <button  type="submit">Relatorio</button>
           
           
