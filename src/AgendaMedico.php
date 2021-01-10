@@ -85,8 +85,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
           <td><?php echo date('d/m/Y', strtotime($dado['diainternacao'])); ?></td> 
           <td>
 
-          <input  type="hidden" name="cpfn" value="<?=$dado['cpf']?>" >
-          <button  type="submit">Relatorio</button>
+          
+          <button  type="submit" name="cpfn" value="<?=$dado['cpf']?>" >Relatorio</button>
           
           
           

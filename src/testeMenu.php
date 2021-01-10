@@ -4,7 +4,8 @@ $u = new Usuario();
 include ('conexao.php');
 
 
-echo 'CHEGOU2';
+
+echo $_POST['textoarea'];
 
 ?>
 

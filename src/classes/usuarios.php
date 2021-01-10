@@ -119,5 +119,36 @@ Class Usuario
 
 
 
+	public function cadastrarRelatorio($nome, $cpf, $planodesaude,$hospital,$auditor,$data,$condicao,$relatorio)
+	{
+		
+		global $pdo;
+			//Cadastrar
+			$sql = $pdo->prepare("INSERT INTO relatorio (nome,cpf,planodesaude,hospital,auditor,datacad,condicao,relatorio) VALUES (:a, :s, :d, :f, :g, :h, :j, :k)");
+			$sql->bindValue(":a",$nome);
+			$sql->bindValue(":s",$cpf);
+			$sql->bindValue(":d",$planodesaude);
+			$sql->bindValue(":f",$hospital);
+			$sql->bindValue(":g",$auditor);
+			$sql->bindValue(":h",$data);
+			$sql->bindValue(":j",$condicao);
+			$sql->bindValue(":k",$relatorio);
+			$sql->execute();
+			return true; //tudo ok
+		
+	}
+	public function Deletar($cpf)
+	{
+		global $pdo;
+		
+			//caso nao, Cadastrar
+			$sql = $pdo->prepare("DELETE FROM internacao WHERE cpf ='$cpf'");
+			$sql->execute();
+			return true; //tudo ok
+		
+	}
+
+
+
 }
 ?>

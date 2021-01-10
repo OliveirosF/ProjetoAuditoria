@@ -61,7 +61,7 @@ $teste =$_POST['cpfn'] ;
 	   </fieldset>
 	   <fieldset >
        <legend><b> Relatório Paciente </b></legend>
-	   <textarea  class="form-contact-textarea" name="textoarea"></textarea>
+	   <textarea  class="form-contact-textarea" name="textoarea" required></textarea>
 	   </fieldset>
 	   <input  type="hidden" name="cpfn" value="<?=$teste?>" >  
     <button  type="submit" class="form-contact-button">Enviar</button>  
@@ -95,22 +95,35 @@ if($u->msgErro == ""){
 	$tipovisita = $dados2['tipovisita'];
 
  	// DADOS PAGINA     
-	$relatorio = isset($_POST['textoarea']);
 	$condicao1 = isset($_POST['condicao']) ? $_POST['condicao'] : '';
+	
 		switch($condicao1){
 			case 'valor2':  // internacao
+				
 				if ($tipovisita == 1){
-					header("location: testeMenu.php");
-					//$data = date('Y-m-d', strtotime("+1 days"));
+					$cond = 'Internacao';
+					$data2 = date('Y-m-d', strtotime("+1 days"));
+					$query3 = "UPDATE internacao SET diainternacao = '$data2'  where cpf ='$teste' ";
+					$result_query3 = mysqli_query($conn,$query3);
+					$u->cadastrarRelatorio($nome1,$teste,$planosaude1,$hospital1,$auditor1,$data1,$cond,$_POST['textoarea']);
+					
 				}
 				
 				if ($tipovisita == 3){
-					header("location: testeMenu.php");
-					//$data = date('Y-m-d', strtotime("+3 days"));
+					$cond = 'Internacao';
+					$data2 = date('Y-m-d', strtotime("+3 days"));
+					$query4 = "UPDATE internacao SET diainternacao = '$data2'  where cpf ='$teste' ";
+					$result_query4 = mysqli_query($conn,$query4);
+					$u->cadastrarRelatorio($nome1,$teste,$planosaude1,$hospital1,$auditor1,$data1,$cond,$_POST['textoarea']);
+					header("location: AgendaMedico.php");
 				}
 				break;
 			case 'valor1': // ALTA
-				
+
+				$cond = 'Alta';
+				$u->cadastrarRelatorio($nome1,$teste,$planosaude1,$hospital1,$auditor1,$data1,$cond,$_POST['textoarea']);
+				$u->Deletar($teste);
+				header("location: AgendaMedico.php");
 				break;
 		}
 	
