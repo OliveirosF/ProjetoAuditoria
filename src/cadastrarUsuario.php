@@ -46,16 +46,29 @@ fieldset {
   <div class="container" align= "center" >  
 <br><br>                        
   <form class="form-contact"  method="post" tabindex="1" > 
-	  <h2 > Cadastrar Hospital </h2>
+	  <h2 > Cadastrar Usuário </h2>
 	  <br>
 	  <fieldset >
-       <legend><b>Nome Hospital </b></legend>
-	   <input class="form-contact-input" name="nomeH" placeholder="Nome Hospital" type="text" required>
+       <legend><b>Nome Completo </b></legend>
+	   <input class="form-contact-input" name="nomec" placeholder="Nome Completo" type="text" required>
 	   </fieldset>
 	   <fieldset >
-	   <legend><b>Auditor </b></legend>
-	   <input class="form-contact-input" name="nomeA" placeholder="Auditor Hospital" type="text" required>
+	   <legend><b>Usuário </b></legend>
+	   <input class="form-contact-input" name="nome" placeholder="Usuário" type="text" required>
        </fieldset>
+	   <fieldset>
+       <legend><b>Tipo </b></legend>
+	   <input class="form-contact-input" name="tipo" placeholder="Tipo" type="tipo" required>
+       </fieldset>
+	   <fieldset>
+       <legend><b>Senha </b></legend>
+	   <input class="form-contact-input" name="senha" placeholder="Senha" type="password" required>
+       </fieldset>
+	   <fieldset>
+       <legend><b>Confirmar Senha </b></legend>
+	   <input class="form-contact-input" name="confSenha" placeholder="Confirmar Senha" type="password" required>
+       </fieldset>
+	   <fieldset>
     <button  type="submit" class="form-contact-button" value="Cadastrar">Salvar</button>  
   </form>
     
@@ -65,31 +78,46 @@ fieldset {
 
 <?php
 //verificar se clicou no botao
-if(isset($_POST['nomeH']))
+if(isset($_POST['nome']))
 {
-	$hospital = addslashes($_POST['nomeH']);
-	$auditor =  addslashes($_POST['nomeA']);
+	$nome = addslashes($_POST['nome']);
+	$nomec = addslashes($_POST['nomec']);
+	$tipo = addslashes($_POST['tipo']);
+	$senha = addslashes($_POST['senha']);
+	$confirmarSenha = addslashes($_POST['confSenha']);
 	//verificar se esta preenchido
-	if(!empty($hospital) && !empty($auditor))
+	if(!empty($nomec) && !empty($nome) && !empty($tipo) && !empty($senha) && !empty($confirmarSenha))
 	{
 		$u->conectar("engenharia2","localhost","admin","admin");
 		if($u->msgErro == "")//se esta tudo ok
 		{
-				if($u->cadastrarHospital($hospital,$auditor))
+			if($senha == $confirmarSenha)
+			{
+				if($u->cadastrar($nome,$senha,$tipo,$nomec))
 				{
-					header("location: HospitalCadastrado.php");
+					header("location: UsuarioCadastrado.php");
 					?>
 					
 					<?php
 				}
 				else
 				{
-					header("location: HospitalJaCadastrado.php");
+					header("location: UsuarioJaCadastrado.php");
 					?>
-			 	
+					<div class="msg-erro">
+						nome ja cadastrado!
+					</div>
 					<?php
 				}
-			
+			}
+			else
+			{
+				?>
+				<div class="msg-erro">
+					Senha e confirmar senha não correspondem
+				</div>
+				<?php
+			}
 		}
 		else
 		{

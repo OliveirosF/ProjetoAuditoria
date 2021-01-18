@@ -23,5 +23,15 @@
 				<li><a href="index.php">Logout</a></li>
 			</ul>
 		</nav>
+
+		<div class="container" align= "center" >  
+
+<form class="form-contact"  method="post" tabindex="1" >
+<br><br> 
+	<h2 > USUÁRIO JÁ EXISTENTE NA BASE DE DADOS !! </h2>
+	<br>  
+</form>
+  
+</div>
 	</body>
 </html>

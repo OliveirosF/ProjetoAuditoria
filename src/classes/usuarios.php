@@ -68,11 +68,11 @@ Class Usuario
 	}
 
 		// CADASTRAR HOSPITAL AJEITA AS FUNÇÕES
-	public function cadastrarHospital($nomeHospital, $id_medico, $plano)
+	public function cadastrarHospital($nomeHospital, $auditor)
 	{
 		global $pdo;
 		//verificar se já existe o nome cadastrado
-		$sql = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE nome = :n");
+		$sql = $pdo->prepare("SELECT nome FROM hospital WHERE nome = :n");
 		$sql->bindValue(":n",$nomeHospital);
 		$sql->execute();
 		if($sql->rowCount() > 0)
@@ -82,10 +82,9 @@ Class Usuario
 		else
 		{
 			//caso nao, Cadastrar
-			$sql = $pdo->prepare("INSERT INTO usuarios (nome, senha, tipo) VALUES (:n, :s, :t)");
+			$sql = $pdo->prepare("INSERT INTO hospital (nome, auditor) VALUES (:n, :s)");
 			$sql->bindValue(":n",$nomeHospital);
-			$sql->bindValue(":s",md5($senha));
-			$sql->bindValue(":t",$tipo);
+			$sql->bindValue(":s",$auditor);
 			$sql->execute();
 			return true; //tudo ok
 		}

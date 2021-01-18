@@ -75,6 +75,10 @@ if(isset($_POST['name']))
 					mysqli_close($conn);
 					header("location: menuAtendente.php");
 				}
+				if(strcmp($tipo, "admin") == 0 ){
+					mysqli_close($conn);
+					header("location: menuAdmin.php");
+				}
 				
 				
 						
