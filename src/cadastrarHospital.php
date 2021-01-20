@@ -57,6 +57,7 @@ fieldset {
 	   <input class="form-contact-input" name="nomeA" placeholder="Auditor Hospital" type="text" required>
        </fieldset>
     <button  type="submit" class="form-contact-button" value="Cadastrar">Salvar</button>  
+	<br> 
   </form>
     
 </div>

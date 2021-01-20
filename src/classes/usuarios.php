@@ -66,6 +66,43 @@ Class Usuario
 			return false;  //nao foi possivel logar
 		}
 	}
+	
+		// CADASTRAR PACIENTE 
+public function cadastrarPaciente($cpf, $nomepaciente,$planodesaude)
+	{
+		global $pdo;
+		//verificar se já existe o nome cadastrado
+		$sql = $pdo->prepare("SELECT nome FROM planodesaude WHERE nome = :n");
+		$sql->bindValue(":n",$planodesaude);
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+
+			$sql = $pdo->prepare("SELECT cpf FROM paciente WHERE cpf = :n");
+			$sql->bindValue(":n",$cpf);
+			$sql->execute();
+			if($sql->rowCount() > 0)
+			{
+				header("location: PacientejaCadastrado.php");
+				return false; 	//ja esta cadastrado
+			
+			}else{
+				//caso nao, Cadastrar
+				$sql = $pdo->prepare("INSERT INTO paciente (cpf, nome,planosaude) VALUES (:n, :s, :c)");
+				$sql->bindValue(":n",$cpf);
+				$sql->bindValue(":s",$nomepaciente);
+				$sql->bindValue(":c",$planodesaude);
+				$sql->execute();
+				return true; 	//tudo ok
+
+			}
+				
+				
+		} else{
+			header("location: PlanodesaudeInexistente.php");
+			return false; 	//PLANO DE SAUDE NÃO EXISTENTE NA BASE DE DADOS
+		}
+	}
 
 		// CADASTRAR HOSPITAL AJEITA AS FUNÇÕES
 	public function cadastrarHospital($nomeHospital, $auditor)
@@ -89,6 +126,48 @@ Class Usuario
 			return true; //tudo ok
 		}
 	}
+
+
+	public function cadastrarPlanoSaude($nomePlano,$cobertura,$nomeHospital, $tipo)
+	{
+		global $pdo;
+		//verificar se já existe o nome cadastrado
+		$sql = $pdo->prepare("SELECT nome FROM hospital WHERE nome = :n");
+		$sql->bindValue(":n",$nomeHospital);
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+			
+			//verificar se já existe o nome cadastrado
+			$sql = $pdo->prepare("SELECT nome FROM planodesaude WHERE nome = :n");
+			$sql->bindValue(":n",$nomePlano);
+			$sql->execute();
+			if($sql->rowCount() > 0)
+			{
+				header("location: Planodesaudejacadastrado.php");
+				return false; //ja esta cadastrado
+			
+			}else{
+				//caso nao, Cadastrar
+			$sql = $pdo->prepare("INSERT INTO planodesaude (nome,cobertura,hospital,tipovisita) VALUES (:n, :s, :g, :h)");
+			$sql->bindValue(":n",$nomePlano);
+			$sql->bindValue(":s",$cobertura);
+			$sql->bindValue(":g",$nomeHospital);
+			$sql->bindValue(":h",$tipo);
+			$sql->execute();
+			return true;
+			}
+		}
+		else
+		{
+			header("location: HospitalInexistente.php");
+			return false; //hospital inexistente
+			
+		}
+	}
+
+
+
 
 	public function cadastrarInternacao($nomePac, $cpf, $plano,$Hospital,$auditor,$date)
 	{
